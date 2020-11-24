@@ -16,36 +16,37 @@
   justify-content: center;
   align-items: center;
   font-family: monospace;
-
 }
 
-.secret {
-  display: none;
-}
-
-.myContainer {
-  
-  width: 100%;
+.bombArea {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.eye {
-  position: relative;
-  display: inline-block;
+.bomb {
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  background: #CCC;
+  height: 100px;
+  width: 100px;
+  background: rgb(48, 47, 47);
+  z-index: 500;
+
 }
-.eye:after { /*pupil*/
+
+.fuse {
+  height: 35px;
+  width: 12px;
+  background: rgb(58, 45, 30);
+  transition: transform 999ms linear;
+  z-index: 150;
+}
+
+.fuse:after {
   position: absolute;
-  bottom: 17px;
-  right: 10px;
-  width: 10px;
-  height: 10px;
-  background: #000;
-  border-radius: 50%;
+  height: 5px;
+  width: 12px;
+  background: rgb(248, 80, 2);
   content: " ";
+  z-index: 150;
 }

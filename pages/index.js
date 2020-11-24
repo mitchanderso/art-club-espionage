@@ -1,65 +1,48 @@
 import Head from 'next/head'
+import React, { useState, useRef }from 'react';
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  const [eyeStyle, setEyeStyle] = useState({
+     color: 'red'
+  })
+
+  const eye = useRef(null);
+  const myBox = useRef(null);
+
+  function handleMouseMove(ev) { 
+    var x = eye.current.offsetLeft + (eye.current.offsetWidth / 2);
+    var y = eye.current.offsetTop + (eye.current.offsetHeight / 2);
+    var rad = Math.atan2(ev.pageX - x, ev.pageY - y);
+    var rot = (rad * (180 / Math.PI) * -1) + 180;
+
+    setEyeStyle({
+      '-webkit-transform': 'rotate(' + rot + 'deg)',
+      '-moz-transform': 'rotate(' + rot + 'deg)',
+      '-ms-transform': 'rotate(' + rot + 'deg)',
+      'transform': 'rotate(' + rot + 'deg)'
+    })
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onMouseMove={(ev)=> handleMouseMove(ev)}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <p> LOOK WITH YOUR SPECIAL EYES TO FIND THE TRUE SOURCE </p>
+        <p className={styles.secret}>Go to /espionage</p>
+        <div className={styles.myContainer}>
+          <div ref={eye} className={styles.eye} style={eyeStyle}></div>
+          <div ref={eye} className={styles.eye} style={eyeStyle}></div>
         </div>
+        
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+
     </div>
   )
 }
